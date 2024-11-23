@@ -5,6 +5,7 @@
     <title>Clientes</title>
     <script>
         let editingClientId = null;
+        let selectedClientEmail = null;
 
         async function loadClients() {
             const response = await fetch('/clients');
@@ -20,6 +21,7 @@
                     <td>
                         <button onclick="editClient(${client.id}, '${client.name}', '${client.email}', '${client.phone || ''}')">Editar</button>
                         <button onclick="deleteClient(${client.id})">Excluir</button>
+                        <button onclick="openEmailModal('${client.email}')">Enviar E-mail</button>
                     </td>
                 </tr>`;
                 table.innerHTML += row;
@@ -80,6 +82,33 @@
             document.getElementById('submit-button').innerText = 'Salvar Alterações';
         }
 
+        function openEmailModal(email) {
+            selectedClientEmail = email;
+            document.getElementById('email-modal').style.display = 'block';
+            document.getElementById('recipient-email').innerText = email;
+        }
+
+        function closeEmailModal() {
+            selectedClientEmail = null;
+            document.getElementById('email-modal').style.display = 'none';
+        }
+
+        async function sendEmail() {
+            const subject = document.getElementById('email-subject').value;
+            const message = document.getElementById('email-message').value;
+
+            const response = await fetch('/clients/send-email?email=' + selectedClientEmail + '&subject=' + subject + '&message=' + message, {
+                method: 'POST'
+            });
+
+            if (response.ok) {
+                alert('E-mail enviado com sucesso!');
+                closeEmailModal();
+            } else {
+                alert('Erro ao enviar o e-mail.');
+            }
+        }
+
         // Função para formatar o número de telefone
         function formatPhone(input) {
             let value = input.value.replace(/\D/g, '');
@@ -112,6 +141,30 @@
             input.value = value.replace(/[^a-zA-Z\s]/g, '');
         }
     </script>
+    <style>
+        #email-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid black;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        #email-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
 </head>
 <body onload="loadClients()">
 <h1>Clientes</h1>
@@ -133,5 +186,16 @@
     </thead>
     <tbody id="client-table"></tbody>
 </table>
+
+<!-- Modal para envio de e-mails -->
+<div id="email-modal-overlay" onclick="closeEmailModal()"></div>
+<div id="email-modal">
+    <h2>Enviar E-mail</h2>
+    <p>Para: <span id="recipient-email"></span></p>
+    <input type="text" id="email-subject" placeholder="Assunto" required>
+    <textarea id="email-message" placeholder="Mensagem" required></textarea>
+    <button onclick="sendEmail()">Enviar</button>
+    <button onclick="closeEmailModal()">Cancelar</button>
+</div>
 </body>
 </html>
