@@ -79,3 +79,23 @@ As principais dependências estão listadas no **pom.xml**. Não esqueça de rod
 - **GET /clients/{id}**: Busca clientes pelo id.
 - **DELETE /cliets/{id}**: Exclui o cliente pelo id.
 - **POST /clients/send-email**: Envia um email para um cliente.
+
+
+# Definindo Variáveis de Ambiente
+
+- **No Windows**
+- Abra o terminal (CMD) e digite:
+
+      $env:SPRING_MAIL_USERNAME="SEU EMAIL"
+      $env:SPRING_MAIL_PASSWORD="SUA SENHA"
+  
+- Para verificar se está tudo correto, digite no terminal (CMD):
+
+      echo $env:SPRING_MAIL_USERNAME
+      echo $env:SPRING_MAIL_PASSWORD
+
+- Agora rode a aplicação com o comando:
+
+      mvn spring-boot:run
+
+**OBS:** *Você pode utilizar o próprio terminal da sua IDE*
