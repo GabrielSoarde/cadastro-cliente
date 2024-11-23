@@ -26,7 +26,7 @@ Certifique-se de ter os seguintes softwares instalados:
 - PostgreSQL
 - Maven
 - Uma conta de e-mail para configuração do envio de mensagens
-- 
+  
 ## Configuração
 ### Banco de Dados
 1. Crie um banco de dados **PostgreSQL** com o nome **clients**:
