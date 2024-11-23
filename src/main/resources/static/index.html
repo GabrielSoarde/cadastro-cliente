@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Clientes</title>
     <script>
+        let editingClientId = null;
+
         async function loadClients() {
             const response = await fetch('/clients');
             const clients = await response.json();
@@ -15,7 +17,10 @@
                     <td>${client.name}</td>
                     <td>${client.email}</td>
                     <td>${client.phone || 'N/A'}</td>
-                    <td><button onclick="deleteClient(${client.id})">Excluir</button></td>
+                    <td>
+                        <button onclick="editClient(${client.id}, '${client.name}', '${client.email}', '${client.phone || ''}')">Editar</button>
+                        <button onclick="deleteClient(${client.id})">Excluir</button>
+                    </td>
                 </tr>`;
                 table.innerHTML += row;
             });
@@ -27,37 +32,63 @@
             location.reload();
         }
 
-        async function addClient() {
+        async function addOrUpdateClient() {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
 
-            const response = await fetch('/clients', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, phone })
-            });
+            if (editingClientId === null) {
+                // Adicionar cliente
+                const response = await fetch('/clients', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone })
+                });
 
-            if (response.ok) {
-                alert('Cliente criado');
-                location.reload();
+                if (response.ok) {
+                    alert('Cliente criado');
+                    location.reload();
+                } else {
+                    alert('Erro ao criar cliente');
+                }
             } else {
-                alert('Erro ao criar cliente');
+                // Atualizar cliente
+                const response = await fetch(`/clients/${editingClientId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone })
+                });
+
+                if (response.ok) {
+                    alert('Cliente atualizado');
+                    editingClientId = null; // Resetando para adicionar novos clientes
+                    document.getElementById('submit-button').innerText = 'Adicionar Cliente';
+                    location.reload();
+                } else {
+                    alert('Erro ao atualizar cliente');
+                }
             }
+        }
+
+        function editClient(id, name, email, phone) {
+            // Preencher o formulário com os dados do cliente
+            document.getElementById('name').value = name;
+            document.getElementById('email').value = email;
+            document.getElementById('phone').value = phone;
+
+            editingClientId = id; // Armazena o ID do cliente que está sendo editado
+            document.getElementById('submit-button').innerText = 'Salvar Alterações';
         }
 
         // Função para formatar o número de telefone
         function formatPhone(input) {
-            // Remove tudo o que não é número
             let value = input.value.replace(/\D/g, '');
 
-            // Se o campo estiver vazio, limpa o campo
             if (value.length === 0) {
                 input.value = '';
                 return;
             }
 
-            // Garante que só números sejam inseridos
             if (value.length <= 2) {
                 input.value = '(' + value;
             } else if (value.length <= 6) {
@@ -67,32 +98,28 @@
             }
         }
 
-        // Função para garantir que apenas números sejam inseridos no campo de telefone
         function validatePhone(event) {
             const input = event.target;
             let value = input.value;
 
-            // Remove qualquer caractere não numérico
             input.value = value.replace(/\D/g, '');
         }
 
-        // Função para garantir que apenas letras sejam inseridas no campo de nome
         function validateName(event) {
             const input = event.target;
             let value = input.value;
 
-            // Remove qualquer caractere que não seja letra ou espaço
             input.value = value.replace(/[^a-zA-Z\s]/g, '');
         }
     </script>
 </head>
 <body onload="loadClients()">
 <h1>Clientes</h1>
-<form onsubmit="addClient(); return false;">
+<form onsubmit="addOrUpdateClient(); return false;">
     <input type="text" id="name" placeholder="Nome" required oninput="validateName(event)">
     <input type="email" id="email" placeholder="Email" required>
     <input type="text" id="phone" placeholder="Telefone" required oninput="validatePhone(event); formatPhone(this)">
-    <button type="submit">Adicionar Cliente</button>
+    <button type="submit" id="submit-button">Adicionar Cliente</button>
 </form>
 <table border="1">
     <thead>
