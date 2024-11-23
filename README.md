@@ -7,6 +7,7 @@ Este é um sistema de cadastro de clientes desenvolvido em Java com **Spring Boo
 - **Adicionar clientes com os dados**: *Nome, E-mail e Telefone.*
 - **Listar todos os clientes cadastrados**.
 - **Buscar cliente por ID.**
+- **Atualizar cliente por ID**
 - **Excluir cliente por ID.**
 - **Enviar e-mails personalizados.**
 
@@ -77,6 +78,7 @@ As principais dependências estão listadas no **pom.xml**. Não esqueça de rod
 - **POST /clients**: Adiciona um novo cliente.
 - **GET /clients**: Lista todos os clientes.
 - **GET /clients/{id}**: Busca clientes pelo id.
+- **PUT /clients/{id}**: Atualiza os dados de um cliente pelo id.
 - **DELETE /cliets/{id}**: Exclui o cliente pelo id.
 - **POST /clients/send-email**: Envia um email para um cliente.
 
