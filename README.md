@@ -4,11 +4,11 @@ Este é um sistema de cadastro de clientes desenvolvido em Java com **Spring Boo
 
 ## Funcionalidades
 
-- Adicionar clientes com os dados: Nome, E-mail e Telefone.
-- Listar todos os clientes cadastrados.
-- Buscar cliente por ID.
-- Excluir cliente por ID.
-- Enviar e-mails personalizados.
+- **Adicionar clientes com os dados**: Nome, E-mail e Telefone.
+- **Listar todos os clientes cadastrados**.
+- **Buscar cliente por ID.**
+- **Excluir cliente por ID.**
+- **Enviar e-mails personalizados.**
 
 ## Tecnologias Utilizadas
 
