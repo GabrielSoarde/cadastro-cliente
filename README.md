@@ -42,17 +42,7 @@ Certifique-se de ter os seguintes softwares instalados:
         spring.jpa.hibernate.ddl-auto=update
         spring.jpa.show-sql=true
 
-## Configuração de E-mail
-No mesmo arquivo `application.properties`, configre os dados de um serviço **SMTP**:
 
-    spring.mail.host=smtp.gmail.com
-    spring.mail.port=587
-    spring.mail.username=SEU_EMAIL
-    spring.mail.password=SUA_SENHA
-    spring.mail.properties.mail.smtp.auth=true
-    spring.mail.properties.mail.smtp.starttls.enable=true
-    
-⚠️ **Não deixe credenciais sensíveis diretamente no arquivo. Utilize variáveis de ambiente!**
 
 ## Dependências
 As principais dependências estão listadas no **pom.xml**. Não esqueça de rodar o maven para baixar as dependências.
@@ -65,27 +55,9 @@ As principais dependências estão listadas no **pom.xml**. Não esqueça de rod
  
         git clone https://github.com/GabrielSoarde/cadastro-cliente.git
         cd cadastro-cliente
-2. Configure o banco de dados e o e-mail no arquivo **application.properties**
-3. Compile e execute o projeto:
+2. Configure o banco de dados no arquivo **application.properties**
+3. Configure as variáveis de ambiente:
    
-        mvn spring-bot:run
-4. Acesse o sistema utilizando um navegador:
-
-        http://localhost:8080
-   
-# Endpoints da API
-
-- **POST /clients**: Adiciona um novo cliente.
-- **GET /clients**: Lista todos os clientes.
-- **GET /clients/{id}**: Busca clientes pelo id.
-- **PUT /clients/{id}**: Atualiza os dados de um cliente pelo id.
-- **DELETE /cliets/{id}**: Exclui o cliente pelo id.
-- **POST /clients/send-email**: Envia um email para um cliente.
-
-
-# Definindo Variáveis de Ambiente
-
-- **No Windows**
 - Abra o terminal (CMD) e digite:
 
       $env:SPRING_MAIL_USERNAME="SEU EMAIL"
@@ -95,9 +67,22 @@ As principais dependências estão listadas no **pom.xml**. Não esqueça de rod
 
       echo $env:SPRING_MAIL_USERNAME
       echo $env:SPRING_MAIL_PASSWORD
+  
+5. Compile e execute o projeto:
+   
+        mvn spring-bot:run
+   
+7. Acesse o sistema utilizando um navegador:
 
-- Agora rode a aplicação com o comando:
+        http://localhost:8080
 
-      mvn spring-boot:run
+**OBS:** *Você pode utilizar o próprio terminal da sua IDE*    
+   
+# Endpoints da API
 
-**OBS:** *Você pode utilizar o próprio terminal da sua IDE*
+- **POST /clients**: Adiciona um novo cliente.
+- **GET /clients**: Lista todos os clientes.
+- **GET /clients/{id}**: Busca clientes pelo id.
+- **PUT /clients/{id}**: Atualiza os dados de um cliente pelo id.
+- **DELETE /cliets/{id}**: Exclui o cliente pelo id.
+- **POST /clients/send-email**: Envia um email para um cliente.
