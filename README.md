@@ -4,28 +4,28 @@ Este é um sistema de cadastro de clientes desenvolvido em Java com **Spring Boo
 
 ## Funcionalidades
 
-- Adicionar clientes com os dados: Nome, E-mail e Telefone.
-- Listar todos os clientes cadastrados.
-- Buscar cliente por ID.
-- Excluir cliente por ID.
-- Enviar e-mails personalizados.
+- **Adicionar clientes com os dados**: *Nome, E-mail e Telefone.*
+- **Listar todos os clientes cadastrados**.
+- **Buscar cliente por ID.**
+- **Excluir cliente por ID.**
+- **Enviar e-mails personalizados.**
 
 ## Tecnologias Utilizadas
 
-- Java (Spring Boot)
-- PostgreSQL (Banco de dados)
-- Thymeleaf (Interface HTML dinâmica)
-- Jakarta Mail (Envio de e-mails)
-- HTML e JavaScript (Front-end simples)
-- Hibernate/JPA (Persistência de dados)
+- **Java (Spring Boot)**
+- **PostgreSQL (Banco de dados)**
+- **Thymeleaf (Interface HTML dinâmica)**
+- **Jakarta Mail (Envio de e-mails)**
+- **HTML e JavaScript (Front-end simples)**
+- **Hibernate/JPA (Persistência de dados)**
   
 ## Pré-requisitos
 Certifique-se de ter os seguintes softwares instalados:
 
-- Java 17 ou superior
-- PostgreSQL
-- Maven
-- Uma conta de e-mail para configuração do envio de mensagens
+- **Java 17 ou superior**
+- **PostgreSQL**
+- **Maven**
+- **Uma conta de e-mail para configuração do envio de mensagens**
   
 ## Configuração
 ### Banco de Dados
