@@ -70,7 +70,7 @@ As principais dependências estão listadas no **pom.xml**. Não esqueça de rod
   
 5. Compile e execute o projeto:
    
-        mvn spring-bot:run
+        mvn spring-boot:run
    
 7. Acesse o sistema utilizando um navegador:
 
